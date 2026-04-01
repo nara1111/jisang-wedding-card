@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우리의 결혼식에 초대합니다</title>
+    <style>
+        /* 기존 스타일 유지 */
+        body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; }
+        .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 50px; }
+        .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; }
+        .header-text { text-align: center; margin-top: 40px; }
+        .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
+        .header-text p { font-size: 1rem; color: #777; margin: 0; }
+        .greeting { text-align: center; padding: 50px 20px; line-height: 2.0; color: #555; font-size: 0.95rem; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px; }
+        .gallery-item { background-color: #eee; aspect-ratio: 1 / 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #aaa; }
+
+        /* 🌟 새로 추가된 방명록 스타일 */
+        .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 40px; }
+        .guestbook h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
+        .guestbook input, .guestbook textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .guestbook textarea { height: 80px; resize: none; }
+        .guestbook button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 95%;
+            font-size: 1rem;
+        }
+        .guestbook button:hover { background-color: #555; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="main-photo">메인 사진 영역</div>
+        <div class="header-text">
+            <h1>김코딩 & 이개발</h1>
+            <p>2026년 5월 15일 토요일 낮 12시</p>
+        </div>
+        <div class="greeting">
+            서로가 마주 보며 다져온 사랑을<br>
+            이제 함께 한 곳을 바라보며<br>
+            걸어갈 수 있는 큰 사랑으로 키우고자 합니다.
+        </div>
+        <div class="gallery">
+            <div class="gallery-item">사진 1</div><div class="gallery-item">사진 2</div>
+        </div>
+
+        <div class="guestbook">
+            <h2>축하 메시지 남기기 💌</h2>
+            <input type="text" id="guestName" placeholder="보내시는 분 성함">
+            <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
+            <button onclick="sendTelegramMessage()">메시지 보내기</button>
+        </div>
+    </div>
+
+    <script>
+        function sendTelegramMessage() {
+            // 1. 입력된 이름과 메시지 가져오기
+            const name = document.getElementById('guestName').value;
+            const message = document.getElementById('guestMessage').value;
+
+            // 2. 빈칸 검사하기
+            if(!name || !message) {
+                alert("성함과 메시지를 모두 입력해주세요!");
+                return;
+            }
+
+            // 3. 텔레그램 봇 정보 설정 (나중에 실제 값으로 바꿔야 합니다!)
+            const botToken = '8689408978:AAGnpWso5gG0r_jeGPsmsHmcd-TtHUoVYmQ';
+            const chatId = '189806680';
+            
+            // 4. 전송할 메시지 내용 만들기
+            const text = `🎉 [청첩장 도착]\n보낸사람: ${name}\n메시지: ${message}`;
+            
+            // 5. 텔레그램 API 주소로 전송 요청하기
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+
+            fetch(url)
+                .then(response => {
+                    if(response.ok) {
+                        alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
+                        // 전송 성공 시 입력창 비우기
+                        document.getElementById('guestName').value = '';
+                        document.getElementById('guestMessage').value = '';
+                    } else {
+                        alert("전송에 실패했습니다. 나중에 다시 시도해주세요.");
+                    }
+                })
+                .catch(error => {
+                    console.error("에러 발생:", error);
+                    alert("인터넷 연결을 확인해주세요.");
+                });
+        }
+    </script>
+</body>
+</html>
