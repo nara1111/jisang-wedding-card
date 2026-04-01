@@ -16,65 +16,42 @@
         .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
         .header-text p { font-size: 1rem; color: #777; margin: 0; }
         
-        .greeting { text-align: center; padding: 50px 20px; line-height: 2.0; color: #555; font-size: 0.95rem; }
+        /* 🌟 수정됨: 모바일 줄바꿈 현상 개선 (word-break, font-size, padding 조정) */
+        .greeting { 
+            text-align: center; 
+            padding: 50px 15px; 
+            line-height: 2.0; 
+            color: #555; 
+            font-size: 0.9rem; 
+            word-break: keep-all; 
+        }
 
         /* 이미지 슬라이드 스타일 */
         .slider-container {
             position: relative;
             max-width: 100%;
-            margin: 0 20px; /* 좌우 여백 */
+            margin: 0 20px;
             overflow: hidden;
-            border-radius: 8px; /* 모서리 둥글게 */
-            aspect-ratio: 1 / 1; /* 정사각형 비율 */
+            border-radius: 8px;
+            aspect-ratio: 1 / 1;
             background-color: #eee;
         }
 
-        /* 개별 슬라이드 (기본적으로 숨김) */
-        .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-        }
+        .slide { display: none; width: 100%; height: 100%; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 사진 비율 유지 */
-        .slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .fade { animation-name: fadeEffect; animation-duration: 0.8s; }
+        @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
 
-        /* 부드럽게 나타나는 애니메이션 효과 */
-        .fade {
-            animation-name: fadeEffect;
-            animation-duration: 0.8s;
-        }
-
-        @keyframes fadeEffect {
-            from {opacity: .4} 
-            to {opacity: 1}
-        }
-
-        /* 좌우 화살표 버튼 스타일 */
         .prev-btn, .next-btn {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: auto;
-            padding: 15px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.3s ease;
-            user-select: none;
-            background-color: rgba(0,0,0,0.2); /* 반투명 검은색 배경 */
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: auto; padding: 15px; color: white; font-weight: bold; font-size: 18px;
+            transition: 0.3s ease; user-select: none; background-color: rgba(0,0,0,0.2);
             text-decoration: none;
         }
 
-        /* 화살표 위치 */
         .prev-btn { left: 0; border-radius: 0 5px 5px 0; }
         .next-btn { right: 0; border-radius: 5px 0 0 5px; }
-
         .prev-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.6); }
 
         /* 방명록 스타일 */
