@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <title>우리의 결혼식에 초대합니다</title>
     <style>
-        /* 기존 스타일 유지 */
+        /* 기본 스타일 유지 */
         body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; }
         .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 50px; }
         .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; }
@@ -16,7 +17,7 @@
         .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px; }
         .gallery-item { background-color: #eee; aspect-ratio: 1 / 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #aaa; }
 
-        /* 🌟 새로 추가된 방명록 스타일 */
+        /* 방명록 스타일 */
         .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 40px; }
         .guestbook h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
         .guestbook input, .guestbook textarea {
@@ -50,9 +51,10 @@
             <p>2026년 7월 1일 수요일</p>
         </div>
         <div class="greeting">
-            서로가 마주 보며 다져온 사랑을<br>
-            이제 함께 한 곳을 바라보며<br>
-            걸어갈 수 있는 큰 사랑으로 키우고자 합니다.
+            맛있는 음식을 나누며<br>
+            인생이라는 긴 여행을 함께할 반쪽을 만났습니다.<br>
+            마땅히 많은 분을 모셔야 하나,<br>
+            직접 모시지 못하는 송구한 마음을 전합니다.
         </div>
         <div class="gallery">
             <div class="gallery-item">사진 1</div><div class="gallery-item">사진 2</div>
@@ -62,6 +64,7 @@
             <h2>축하 메시지 남기기 💌</h2>
             <input type="text" id="guestName" placeholder="보내시는 분 성함">
             <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7" style="margin-bottom: 10px;"></div>
             <button onclick="sendTelegramMessage()">메시지 보내기</button>
         </div>
     </div>
@@ -71,29 +74,43 @@
             const name = document.getElementById('guestName').value;
             const message = document.getElementById('guestMessage').value;
 
+            // Turnstile이 발급한 토큰 가져오기
+            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
+
             if(!name || !message) {
                 alert("성함과 메시지를 모두 입력해주세요!");
                 return;
             }
 
-            // 구글 앱스 스크립트에서 복사한 '웹 앱 URL'을 여기에 넣습니다.
-            // (이 주소는 공개되어도 안전합니다!)
+            if(!turnstileResponse) {
+                alert("자동가입 방지(캡차) 확인을 완료해주세요.");
+                return;
+            }
+
+            // 구글 앱스 스크립트 웹 앱 URL
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec';
 
-            // 텔레그램이 아닌 구글 서버(중간 다리)로 데이터를 보냅니다.
+            // 구글 서버로 데이터 전송
             fetch(scriptUrl, {
                 method: 'POST',
-                body: JSON.stringify({ name: name, message: message })
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ 
+                    name: name, 
+                    message: message,
+                    turnstileToken: turnstileResponse // 🌟 수정됨: 주석을 해제하고 토큰 데이터를 정상적으로 포함시켰습니다.
+                })
             })
             .then(response => {
                 alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
                 document.getElementById('guestName').value = '';
                 document.getElementById('guestMessage').value = '';
+                turnstile.reset(); // 🌟 수정됨: 성공적으로 전송한 뒤 캡차 위젯을 초기화합니다.
             })
             .catch(error => {
                 console.error("에러 발생:", error);
-                alert("인터넷 연결을 확인해주세요.");
+                alert("전송에 실패했습니다. (콘솔 로그를 확인해주세요)");
             });
+            
         }
     </script>
 </body>
