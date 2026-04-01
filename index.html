@@ -68,41 +68,32 @@
 
     <script>
         function sendTelegramMessage() {
-            // 1. 입력된 이름과 메시지 가져오기
             const name = document.getElementById('guestName').value;
             const message = document.getElementById('guestMessage').value;
 
-            // 2. 빈칸 검사하기
             if(!name || !message) {
                 alert("성함과 메시지를 모두 입력해주세요!");
                 return;
             }
 
-            // 3. 텔레그램 봇 정보 설정 (나중에 실제 값으로 바꿔야 합니다!)
-            const botToken = '8689408978:AAGnpWso5gG0r_jeGPsmsHmcd-TtHUoVYmQ';
-            const chatId = '189806680';
-            
-            // 4. 전송할 메시지 내용 만들기
-            const text = `🎉 [청첩장 도착]\n보낸사람: ${name}\n메시지: ${message}`;
-            
-            // 5. 텔레그램 API 주소로 전송 요청하기
-            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+            // 구글 앱스 스크립트에서 복사한 '웹 앱 URL'을 여기에 넣습니다.
+            // (이 주소는 공개되어도 안전합니다!)
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec';
 
-            fetch(url)
-                .then(response => {
-                    if(response.ok) {
-                        alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
-                        // 전송 성공 시 입력창 비우기
-                        document.getElementById('guestName').value = '';
-                        document.getElementById('guestMessage').value = '';
-                    } else {
-                        alert("전송에 실패했습니다. 나중에 다시 시도해주세요.");
-                    }
-                })
-                .catch(error => {
-                    console.error("에러 발생:", error);
-                    alert("인터넷 연결을 확인해주세요.");
-                });
+            // 텔레그램이 아닌 구글 서버(중간 다리)로 데이터를 보냅니다.
+            fetch(scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify({ name: name, message: message })
+            })
+            .then(response => {
+                alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
+                document.getElementById('guestName').value = '';
+                document.getElementById('guestMessage').value = '';
+            })
+            .catch(error => {
+                console.error("에러 발생:", error);
+                alert("인터넷 연결을 확인해주세요.");
+            });
         }
     </script>
 </body>
