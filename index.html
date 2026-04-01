@@ -6,38 +6,88 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <title>우리의 결혼식에 초대합니다</title>
     <style>
-        /* 기본 스타일 유지 */
+        /* 기본 스타일 */
         body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; }
         .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 50px; }
-        .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; }
+        .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; overflow: hidden; }
+        .main-photo img { width: 100%; height: 100%; object-fit: cover; }
+        
         .header-text { text-align: center; margin-top: 40px; }
         .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
         .header-text p { font-size: 1rem; color: #777; margin: 0; }
+        
         .greeting { text-align: center; padding: 50px 20px; line-height: 2.0; color: #555; font-size: 0.95rem; }
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px; }
-        .gallery-item { background-color: #eee; aspect-ratio: 1 / 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #aaa; }
+
+        /* 이미지 슬라이드 스타일 */
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 20px; /* 좌우 여백 */
+            overflow: hidden;
+            border-radius: 8px; /* 모서리 둥글게 */
+            aspect-ratio: 1 / 1; /* 정사각형 비율 */
+            background-color: #eee;
+        }
+
+        /* 개별 슬라이드 (기본적으로 숨김) */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 사진 비율 유지 */
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 부드럽게 나타나는 애니메이션 효과 */
+        .fade {
+            animation-name: fadeEffect;
+            animation-duration: 0.8s;
+        }
+
+        @keyframes fadeEffect {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+
+        /* 좌우 화살표 버튼 스타일 */
+        .prev-btn, .next-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s ease;
+            user-select: none;
+            background-color: rgba(0,0,0,0.2); /* 반투명 검은색 배경 */
+            text-decoration: none;
+        }
+
+        /* 화살표 위치 */
+        .prev-btn { left: 0; border-radius: 0 5px 5px 0; }
+        .next-btn { right: 0; border-radius: 5px 0 0 5px; }
+
+        .prev-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.6); }
 
         /* 방명록 스타일 */
         .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 40px; }
         .guestbook h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
         .guestbook input, .guestbook textarea {
-            width: 90%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
+            width: 90%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd;
+            border-radius: 5px; font-family: inherit; box-sizing: border-box;
         }
         .guestbook textarea { height: 80px; resize: none; }
         .guestbook button {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 95%;
-            font-size: 1rem;
+            background-color: #333; color: #fff; border: none; padding: 12px 20px;
+            border-radius: 5px; cursor: pointer; width: 90%; font-size: 1rem;
         }
         .guestbook button:hover { background-color: #555; }
     </style>
@@ -45,72 +95,108 @@
 <body>
 
     <div class="container">
-        <div class="main-photo">메인 사진 영역</div>
+        <div class="main-photo">
+            <img src="./images/main.jpg" alt="메인 사진" onerror="this.style.display='none'; this.parentNode.innerHTML='메인 사진 영역';">
+        </div>
+        
         <div class="header-text">
             <h1>한상욱 & 강지애</h1>
-            <p>2026년 7월 1일 수요일</p>
+            <p>2026년 어느 여름날</p>
         </div>
+        
         <div class="greeting">
             맛있는 음식을 나누며<br>
             인생이라는 긴 여행을 함께할 반쪽을 만났습니다.<br>
             마땅히 많은 분을 모셔야 하나,<br>
-            직접 모시지 못하는 송구한 마음을 전합니다.
+            가족만 모여 간소하게 식을 올립니다.<br>
+            직접 모시지 못하는 송구한 마음을 담아 소식을 전합니다.<br>
+            저희의 새로운 시작을 축복해주시면 감사하겠습니다.
         </div>
-        <div class="gallery">
-            <div class="gallery-item">사진 1</div><div class="gallery-item">사진 2</div>
+
+        <div class="slider-container">
+            <div class="slide fade" style="display: block;">
+                <img src="./images/photo1.jpg" alt="웨딩 사진 1" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;\'>사진 1 준비 중</div>';">
+            </div>
+            <div class="slide fade">
+                <img src="./images/photo2.jpg" alt="웨딩 사진 2" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;\'>사진 2 준비 중</div>';">
+            </div>
+            <div class="slide fade">
+                <img src="./images/photo3.jpg" alt="웨딩 사진 3" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;\'>사진 3 준비 중</div>';">
+            </div>
+            
+            <a class="prev-btn" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next-btn" onclick="changeSlide(1)">&#10095;</a>
         </div>
 
         <div class="guestbook">
             <h2>축하 메시지 남기기 💌</h2>
             <input type="text" id="guestName" placeholder="보내시는 분 성함">
             <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7" style="margin-bottom: 10px;"></div>
+            
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7" style="margin-bottom: 10px; display: flex; justify-content: center;"></div>
+            
             <button onclick="sendTelegramMessage()">메시지 보내기</button>
         </div>
     </div>
 
     <script>
+        // 슬라이드 동작 자바스크립트
+        let currentSlideIndex = 0;
+        const slides = document.getElementsByClassName("slide");
+
+        function changeSlide(step) {
+            slides[currentSlideIndex].style.display = "none";
+            currentSlideIndex += step;
+            
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            }
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
+            
+            slides[currentSlideIndex].style.display = "block";
+        }
+
+        // 텔레그램 메시지 전송 자바스크립트
         function sendTelegramMessage() {
             const name = document.getElementById('guestName').value;
             const message = document.getElementById('guestMessage').value;
 
-            // Turnstile이 발급한 토큰 가져오기
-            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
+            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+            const turnstileToken = turnstileResponse ? turnstileResponse.value : '';
 
             if(!name || !message) {
                 alert("성함과 메시지를 모두 입력해주세요!");
                 return;
             }
 
-            if(!turnstileResponse) {
+            if(!turnstileToken) {
                 alert("자동가입 방지(캡차) 확인을 완료해주세요.");
                 return;
             }
 
-            // 구글 앱스 스크립트 웹 앱 URL
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec';
 
-            // 구글 서버로 데이터 전송
             fetch(scriptUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ 
                     name: name, 
                     message: message,
-                    turnstileToken: turnstileResponse // 🌟 수정됨: 주석을 해제하고 토큰 데이터를 정상적으로 포함시켰습니다.
+                    turnstileToken: turnstileToken
                 })
             })
             .then(response => {
                 alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
                 document.getElementById('guestName').value = '';
                 document.getElementById('guestMessage').value = '';
-                turnstile.reset(); // 🌟 수정됨: 성공적으로 전송한 뒤 캡차 위젯을 초기화합니다.
+                if(typeof turnstile !== 'undefined') turnstile.reset();
             })
             .catch(error => {
                 console.error("에러 발생:", error);
                 alert("전송에 실패했습니다. (콘솔 로그를 확인해주세요)");
             });
-            
         }
     </script>
 </body>
