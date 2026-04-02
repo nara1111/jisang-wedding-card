@@ -9,24 +9,61 @@
         /* 기본 스타일 */
         body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; }
         .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 0px; }
+        
+        /* 메인 사진 영역 */
         .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; overflow: hidden; }
         .main-photo img { width: 100%; height: 100%; object-fit: cover; }
         
+        /* 타이틀 스타일 */
         .header-text { text-align: center; margin-top: 40px; }
         .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
         .header-text p { font-size: 1rem; color: #777; margin: 0; }
         
-        .greeting { text-align: center; padding: 50px 15px; line-height: 2.0; color: #555; font-size: 0.95rem; word-break: keep-all; }
+        /* 타이틀 하트 스타일 */
+        .main-heart {
+            color: #e74c3c;
+            font-size: 1.3rem;
+            margin: 0 3px;
+            vertical-align: middle;
+        }
+        
+        /* 초대 글귀 */
+        .greeting { 
+            text-align: center; 
+            padding: 50px 15px; 
+            line-height: 2.0; 
+            color: #555; 
+            font-size: 0.95rem; 
+            word-break: keep-all; 
+        }
 
         /* 이미지 슬라이드 스타일 */
-        .slider-container { position: relative; max-width: 100%; margin: 0 20px; overflow: hidden; border-radius: 8px; aspect-ratio: 1 / 1; background-color: #eee; }
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 20px;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 1 / 1;
+            background-color: #eee;
+        }
+
         .slide { display: none; width: 100%; height: 100%; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
+
         .fade { animation-name: fadeEffect; animation-duration: 0.8s; }
         @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
-        .prev-btn, .next-btn { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); width: auto; padding: 15px; color: white; font-weight: bold; font-size: 18px; transition: 0.3s ease; user-select: none; background-color: rgba(0,0,0,0.2); text-decoration: none; }
+
+        .prev-btn, .next-btn {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: auto; padding: 15px; color: white; font-weight: bold; font-size: 18px;
+            transition: 0.3s ease; user-select: none; background-color: rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
         .prev-btn { left: 0; border-radius: 0 5px 5px 0; }
         .next-btn { right: 0; border-radius: 5px 0 0 5px; }
+        .prev-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.6); }
 
         /* 마음 전하실 곳 스타일 */
         .account-section { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; }
@@ -44,12 +81,28 @@
         /* 방명록 스타일 */
         .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px; }
         .guestbook h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
-        .guestbook input, .guestbook textarea { width: 90%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; box-sizing: border-box; }
+        .guestbook input, .guestbook textarea {
+            width: 90%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd;
+            border-radius: 5px; font-family: inherit; box-sizing: border-box;
+        }
         .guestbook textarea { height: 80px; resize: none; }
-        .guestbook button { background-color: #333; color: #fff; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; width: 90%; font-size: 1rem; }
+        .guestbook button {
+            background-color: #333; color: #fff; border: none; padding: 12px 20px;
+            border-radius: 5px; cursor: pointer; width: 90%; font-size: 1rem;
+        }
+        .guestbook button:hover { background-color: #555; }
 
-        /* 푸터 스타일 */
-        .footer { text-align: center; padding: 30px 20px; font-size: 0.75rem; color: #aaa; background-color: #fcfcfc; border-top: 1px solid #eee; margin-top: 20px; line-height: 1.6; }
+        /* 푸터(저작권) 스타일 */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.75rem;
+            color: #aaa;
+            background-color: #fcfcfc;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -60,7 +113,7 @@
         </div>
         
         <div class="header-text">
-            <h1>한상욱 & 강지애</h1>
+            <h1>한상욱 <span class="main-heart">♥</span> 강지애</h1>
             <p>2026년 어느 여름날</p>
         </div>
         
@@ -76,15 +129,22 @@
         </div>
 
         <div class="slider-container">
-            <div class="slide fade" style="display: block;"><img src="./images/photo1.jpg" alt="사진 1" onerror="this.style.display='none';"></div>
-            <div class="slide fade"><img src="./images/photo2.jpg" alt="사진 2" onerror="this.style.display='none';"></div>
-            <div class="slide fade"><img src="./images/photo3.jpg" alt="사진 3" onerror="this.style.display='none';"></div>
+            <div class="slide fade" style="display: block;">
+                <img src="./images/photo1.jpg" alt="웨딩 사진 1" onerror="this.style.display='none';">
+            </div>
+            <div class="slide fade">
+                <img src="./images/photo2.jpg" alt="웨딩 사진 2" onerror="this.style.display='none';">
+            </div>
+            <div class="slide fade">
+                <img src="./images/photo3.jpg" alt="웨딩 사진 3" onerror="this.style.display='none';">
+            </div>
+            
             <a class="prev-btn" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next-btn" onclick="changeSlide(1)">&#10095;</a>
         </div>
 
         <div class="account-section">
-            <h2>마음 전하실 곳 💌</h2>
+            <h2>마음 전하실 곳 💝</h2>
             
             <div class="account-box">
                 <div class="account-header" onclick="toggleAccount('groom')">
@@ -125,13 +185,15 @@
             <h2>축하 메시지 남기기 💌</h2>
             <input type="text" id="guestName" placeholder="보내시는 분 성함">
             <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
+            
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7" style="margin-bottom: 10px; display: flex; justify-content: center;"></div>
+            
             <button onclick="sendTelegramMessage()">메시지 보내기</button>
         </div>
 
         <div class="footer">
             &copy; 2026 한상욱 & 강지애. All rights reserved.<br>
-            Designed & Coded with ♥ by 예비부부 & 코딩 파트너(AI)
+            Designed & Coded with ♥ by 예비부부 & 코딩선생님(Google Gemini)
         </div>
     </div>
 
@@ -143,7 +205,7 @@
             content.style.display = isVisible ? 'none' : 'block';
         }
 
-        // 복사 함수 (에러 처리 안전망 포함)
+        // 복사 함수
         function copyAccount(accountInfo) {
             navigator.clipboard.writeText(accountInfo).then(() => {
                 alert("계좌정보가 복사되었습니다.");
@@ -153,42 +215,63 @@
             });
         }
 
-        // 슬라이드 동작
+        // 슬라이드 동작 자바스크립트
         let currentSlideIndex = 0;
         const slides = document.getElementsByClassName("slide");
+
         function changeSlide(step) {
             slides[currentSlideIndex].style.display = "none";
             currentSlideIndex += step;
-            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
-            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            }
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
+            
             slides[currentSlideIndex].style.display = "block";
         }
 
-        // 텔레그램 메시지 전송
+        // 텔레그램 메시지 전송 자바스크립트
         function sendTelegramMessage() {
             const name = document.getElementById('guestName').value;
             const message = document.getElementById('guestMessage').value;
+
             const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
             const turnstileToken = turnstileResponse ? turnstileResponse.value : '';
 
-            if(!name || !message || !turnstileToken) {
-                alert("성함, 메시지, 캡차 확인을 모두 완료해주세요.");
+            if(!name || !message) {
+                alert("성함과 메시지를 모두 입력해주세요!");
+                return;
+            }
+
+            if(!turnstileToken) {
+                alert("자동가입 방지(캡차) 확인을 완료해주세요.");
                 return;
             }
 
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec';
+
             fetch(scriptUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ name, message, turnstileToken })
+                body: JSON.stringify({ 
+                    name: name, 
+                    message: message,
+                    turnstileToken: turnstileToken
+                })
             })
-            .then(() => {
-                alert("메시지가 성공적으로 전송되었습니다.");
+            .then(response => {
+                alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
                 document.getElementById('guestName').value = '';
                 document.getElementById('guestMessage').value = '';
                 if(typeof turnstile !== 'undefined') turnstile.reset();
             })
-            .catch(() => alert("전송에 실패했습니다."));
+            .catch(error => {
+                console.error("에러 발생:", error);
+                alert("전송에 실패했습니다. (콘솔 로그를 확인해주세요)");
+            });
         }
     </script>
 </body>
