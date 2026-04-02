@@ -19,12 +19,15 @@
         .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
         .header-text p { font-size: 1rem; color: #777; margin: 0; }
         
-        /* 타이틀 하트 스타일 */
+        /* 🌟 수정된 타이틀 하트 스타일 (폰트 압축 방지) */
         .main-heart {
             color: #e74c3c;
             font-size: 1.3rem;
             margin: 0 3px;
             vertical-align: middle;
+            font-family: 'Arial', sans-serif; /* 갤럭시에 의한 폰트 찌그러짐 방지 */
+            display: inline-block;
+            line-height: 1;
         }
         
         /* 초대 글귀 */
@@ -193,7 +196,7 @@
 
         <div class="footer">
             &copy; 2026 한상욱 & 강지애. All rights reserved.<br>
-            Designed & Coded with ♥ by 예비부부 & 코딩선생님(Google Gemini)
+            Designed & Coded with ♥ by 예비부부 & Google Gemini
         </div>
     </div>
 
