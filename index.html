@@ -8,7 +8,7 @@
     <style>
         /* 기본 스타일 */
         body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; }
-        .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 50px; }
+        .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 0px; }
         .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; overflow: hidden; }
         .main-photo img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -16,57 +16,40 @@
         .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
         .header-text p { font-size: 1rem; color: #777; margin: 0; }
         
-        /* 🌟 수정됨: 모바일 줄바꿈 현상 개선 (word-break, font-size, padding 조정) */
-        .greeting { 
-            text-align: center; 
-            padding: 50px 15px; 
-            line-height: 2.0; 
-            color: #555; 
-            font-size: 0.9rem; 
-            word-break: keep-all; 
-        }
+        .greeting { text-align: center; padding: 50px 15px; line-height: 2.0; color: #555; font-size: 0.95rem; word-break: keep-all; }
 
         /* 이미지 슬라이드 스타일 */
-        .slider-container {
-            position: relative;
-            max-width: 100%;
-            margin: 0 20px;
-            overflow: hidden;
-            border-radius: 8px;
-            aspect-ratio: 1 / 1;
-            background-color: #eee;
-        }
-
+        .slider-container { position: relative; max-width: 100%; margin: 0 20px; overflow: hidden; border-radius: 8px; aspect-ratio: 1 / 1; background-color: #eee; }
         .slide { display: none; width: 100%; height: 100%; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
-
         .fade { animation-name: fadeEffect; animation-duration: 0.8s; }
         @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
-
-        .prev-btn, .next-btn {
-            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
-            width: auto; padding: 15px; color: white; font-weight: bold; font-size: 18px;
-            transition: 0.3s ease; user-select: none; background-color: rgba(0,0,0,0.2);
-            text-decoration: none;
-        }
-
+        .prev-btn, .next-btn { cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%); width: auto; padding: 15px; color: white; font-weight: bold; font-size: 18px; transition: 0.3s ease; user-select: none; background-color: rgba(0,0,0,0.2); text-decoration: none; }
         .prev-btn { left: 0; border-radius: 0 5px 5px 0; }
         .next-btn { right: 0; border-radius: 5px 0 0 5px; }
-        .prev-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.6); }
+
+        /* 🌟 새로 추가된 마음 전하실 곳 스타일 */
+        .account-section { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; }
+        .account-section h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
+        
+        .account-box { margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+        .account-header { background-color: #f9f9f9; padding: 15px; cursor: pointer; font-weight: bold; color: #555; display: flex; justify-content: space-between; align-items: center; }
+        .account-content { display: none; padding: 20px; background-color: #fff; border-top: 1px solid #eee; text-align: left; }
+        
+        .account-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; }
+        .account-item:last-child { margin-bottom: 0; }
+        .btn-copy { background-color: #eee; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; color: #666; }
+        .btn-copy:active { background-color: #ddd; }
 
         /* 방명록 스타일 */
-        .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 40px; }
+        .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px; }
         .guestbook h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
-        .guestbook input, .guestbook textarea {
-            width: 90%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd;
-            border-radius: 5px; font-family: inherit; box-sizing: border-box;
-        }
+        .guestbook input, .guestbook textarea { width: 90%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; box-sizing: border-box; }
         .guestbook textarea { height: 80px; resize: none; }
-        .guestbook button {
-            background-color: #333; color: #fff; border: none; padding: 12px 20px;
-            border-radius: 5px; cursor: pointer; width: 90%; font-size: 1rem;
-        }
-        .guestbook button:hover { background-color: #555; }
+        .guestbook button { background-color: #333; color: #fff; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; width: 90%; font-size: 1rem; }
+
+        /* 푸터 스타일 */
+        .footer { text-align: center; padding: 30px 20px; font-size: 0.75rem; color: #aaa; background-color: #fcfcfc; border-top: 1px solid #eee; margin-top: 20px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -83,97 +66,120 @@
         
         <div class="greeting">
             맛있는 음식을 나누며<br>
-            인생이라는 긴 여행을 함께할 반쪽을 만났습니다.<br>
+            긴 여행을 함께할 반쪽을 만났습니다.<br><br>
             마땅히 많은 분을 모셔야 하나,<br>
-            가족만 모여 간소하게 식을 올립니다.<br>
-            직접 모시지 못하는 송구한 마음을 담아 소식을 전합니다.<br>
-            저희의 새로운 시작을 축복해주시면 감사하겠습니다.
+            가족만 모여 간소하게 식을 올립니다.<br><br>
+            직접 뵙고 인사드리지 못하는<br>
+            송구한 마음을 담아 소식을 전합니다.<br>
+            저희의 새로운 시작을 축복해 주시면<br>
+            큰 기쁨으로 간직하겠습니다.
         </div>
 
         <div class="slider-container">
-            <div class="slide fade" style="display: block;">
-                <img src="./images/photo1.jpg" alt="웨딩 사진 1" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;\'>사진 1 준비 중</div>';">
-            </div>
-            <div class="slide fade">
-                <img src="./images/photo2.jpg" alt="웨딩 사진 2" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;\'>사진 2 준비 중</div>';">
-            </div>
-            <div class="slide fade">
-                <img src="./images/photo3.jpg" alt="웨딩 사진 3" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#aaa;\'>사진 3 준비 중</div>';">
-            </div>
-            
+            <div class="slide fade" style="display: block;"><img src="./images/photo1.jpg" alt="사진 1" onerror="this.style.display='none';"></div>
+            <div class="slide fade"><img src="./images/photo2.jpg" alt="사진 2" onerror="this.style.display='none';"></div>
+            <div class="slide fade"><img src="./images/photo3.jpg" alt="사진 3" onerror="this.style.display='none';"></div>
             <a class="prev-btn" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next-btn" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+
+        <div class="account-section">
+            <h2>마음 전하실 곳 💌</h2>
+            
+            <div class="account-box">
+                <div class="account-header" onclick="toggleAccount('groom')">
+                    신랑측 계좌번호 보기 <span>▼</span>
+                </div>
+                <div id="groom-account" class="account-content">
+                    <div class="account-item">
+                        <span>신랑 한상욱<br>신한 110-123-456789</span>
+                        <button class="btn-copy" onclick="copyAccount('110123456789')">복사</button>
+                    </div>
+                    <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+                    <div class="account-item">
+                        <span>부친 한학수<br>국민 123456-01-123456</span>
+                        <button class="btn-copy" onclick="copyAccount('12345601123456')">복사</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-box">
+                <div class="account-header" onclick="toggleAccount('bride')">
+                    신부측 계좌번호 보기 <span>▼</span>
+                </div>
+                <div id="bride-account" class="account-content">
+                    <div class="account-item">
+                        <span>신부 강지애<br>우리 1002-123-456789</span>
+                        <button class="btn-copy" onclick="copyAccount('1002123456789')">복사</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="guestbook">
             <h2>축하 메시지 남기기 💌</h2>
             <input type="text" id="guestName" placeholder="보내시는 분 성함">
             <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
-            
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7" style="margin-bottom: 10px; display: flex; justify-content: center;"></div>
-            
             <button onclick="sendTelegramMessage()">메시지 보내기</button>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 한상욱 & 강지애. All rights reserved.<br>
+            Designed & Coded with ♥ by 예비부부 & 코딩 파트너(AI)
         </div>
     </div>
 
     <script>
-        // 슬라이드 동작 자바스크립트
+        // 🌟 계좌번호 토글 함수
+        function toggleAccount(side) {
+            const content = document.getElementById(side + '-account');
+            const isVisible = content.style.display === 'block';
+            content.style.display = isVisible ? 'none' : 'block';
+        }
+
+        // 🌟 계좌번호 복사 함수
+        function copyAccount(accountNumber) {
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                alert("계좌번호가 복사되었습니다.");
+            });
+        }
+
+        // 슬라이드 동작
         let currentSlideIndex = 0;
         const slides = document.getElementsByClassName("slide");
-
         function changeSlide(step) {
             slides[currentSlideIndex].style.display = "none";
             currentSlideIndex += step;
-            
-            if (currentSlideIndex >= slides.length) {
-                currentSlideIndex = 0;
-            }
-            if (currentSlideIndex < 0) {
-                currentSlideIndex = slides.length - 1;
-            }
-            
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
             slides[currentSlideIndex].style.display = "block";
         }
 
-        // 텔레그램 메시지 전송 자바스크립트
+        // 텔레그램 메시지 전송
         function sendTelegramMessage() {
             const name = document.getElementById('guestName').value;
             const message = document.getElementById('guestMessage').value;
+            const turnstileToken = document.querySelector('[name="cf-turnstile-response"]').value;
 
-            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
-            const turnstileToken = turnstileResponse ? turnstileResponse.value : '';
-
-            if(!name || !message) {
-                alert("성함과 메시지를 모두 입력해주세요!");
-                return;
-            }
-
-            if(!turnstileToken) {
-                alert("자동가입 방지(캡차) 확인을 완료해주세요.");
+            if(!name || !message || !turnstileToken) {
+                alert("성함, 메시지, 캡차 확인을 모두 완료해주세요.");
                 return;
             }
 
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec';
-
             fetch(scriptUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ 
-                    name: name, 
-                    message: message,
-                    turnstileToken: turnstileToken
-                })
+                body: JSON.stringify({ name, message, turnstileToken })
             })
-            .then(response => {
-                alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
+            .then(() => {
+                alert("메시지가 성공적으로 전송되었습니다.");
                 document.getElementById('guestName').value = '';
                 document.getElementById('guestMessage').value = '';
-                if(typeof turnstile !== 'undefined') turnstile.reset();
+                turnstile.reset();
             })
-            .catch(error => {
-                console.error("에러 발생:", error);
-                alert("전송에 실패했습니다. (콘솔 로그를 확인해주세요)");
-            });
+            .catch(() => alert("전송에 실패했습니다."));
         }
     </script>
 </body>
