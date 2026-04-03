@@ -8,12 +8,21 @@
     <title>우리의 결혼식에 초대합니다</title>
     <style>
         /* 기본 스타일 */
-        body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Malgun Gothic', sans-serif; display: flex; justify-content: center; }
-        .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 0px; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f4f4; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+        }
+        
+        .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 0px; position: relative; }
         
         /* 메인 사진 영역 */
         .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; overflow: hidden; }
-        .main-photo img { width: 100%; height: 100%; object-fit: cover; }
+        /* 🌟 사진이 어떤 비율이든 중앙을 기준으로 꽉 차게 맞춤 */
+        .main-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; cursor: pointer; } 
         
         /* 타이틀 스타일 */
         .header-text { text-align: center; margin-top: 40px; }
@@ -49,7 +58,8 @@
         }
 
         .slide { display: none; width: 100%; height: 100%; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        /* 🌟 사진이 어떤 비율이든 중앙을 기준으로 꽉 차게 맞춤 */
+        .slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; cursor: pointer; }
 
         .fade { animation-name: fadeEffect; animation-duration: 0.8s; }
         @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
@@ -103,21 +113,71 @@
             margin-top: 20px;
             line-height: 1.6;
         }
+
+        /* 스크롤 애니메이션 CSS */
+        .reveal {
+            opacity: 0; 
+            transform: translateY(30px); 
+            transition: all 0.8s ease-out; 
+        }
+
+        .reveal.active {
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        /* 이미지 모달(확대) 스타일 */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.9); 
+            align-items: center; 
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            max-width: 95%; 
+            max-height: 80vh; 
+            object-fit: contain; 
+            border-radius: 8px;
+            animation: zoom 0.3s ease; 
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0.8); opacity:0;} 
+            to {transform:scale(1); opacity:1;}
+        }
+
+        .close-modal {
+            position: absolute; 
+            top: 20px; 
+            right: 30px; 
+            color: #f1f1f1; 
+            font-size: 40px; 
+            font-weight: bold; 
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="main-photo">
-            <img src="./images/main.jpg" alt="메인 사진" onerror="this.style.display='none'; this.parentNode.innerHTML='메인 사진 영역';">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=480&q=80" alt="메인 사진" onclick="openModal(this)">
         </div>
         
-        <div class="header-text">
+        <div class="header-text reveal">
             <h1>한상욱 <span class="main-heart">❤️</span> 강지애</h1>
             <p>2026년 어느 여름날</p>
         </div>
         
-        <div class="greeting">
+        <div class="greeting reveal">
             맛있는 음식을 나누며<br>
             긴 여행을 함께할 반쪽을 만났습니다.<br><br>
             마땅히 많은 분을 모셔야 하나,<br>
@@ -128,22 +188,22 @@
             큰 기쁨으로 간직하겠습니다.
         </div>
 
-        <div class="slider-container">
+        <div class="slider-container reveal">
             <div class="slide fade" style="display: block;">
-                <img src="./images/photo1.jpg" alt="웨딩 사진 1" onerror="this.style.display='none';">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=480&q=80" alt="웨딩 사진 1" onclick="openModal(this)">
             </div>
             <div class="slide fade">
-                <img src="./images/photo2.jpg" alt="웨딩 사진 2" onerror="this.style.display='none';">
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=480&q=80" alt="웨딩 사진 2" onclick="openModal(this)">
             </div>
             <div class="slide fade">
-                <img src="./images/photo3.jpg" alt="웨딩 사진 3" onerror="this.style.display='none';">
+                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=480&q=80" alt="웨딩 사진 3" onclick="openModal(this)">
             </div>
             
             <a class="prev-btn" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next-btn" onclick="changeSlide(1)">&#10095;</a>
         </div>
 
-        <div class="account-section">
+        <div class="account-section reveal">
             <h2>마음 전하실 곳 💝</h2>
             
             <div class="account-box">
@@ -181,7 +241,7 @@
             </div>
         </div>
 
-        <div class="guestbook">
+        <div class="guestbook reveal">
             <h2>축하 메시지 남기기 💌</h2>
             <input type="text" id="guestName" placeholder="보내시는 분 성함">
             <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
@@ -197,12 +257,44 @@
         </div>
     </div>
 
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="expandedImg">
+    </div>
+
     <script>
+        // 스크롤 애니메이션 자바스크립트
+        document.addEventListener("DOMContentLoaded", function() {
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                threshold: 0.1 
+            });
+
+            reveals.forEach((reveal) => {
+                observer.observe(reveal);
+            });
+        });
+
         // 계좌번호 토글 함수
         function toggleAccount(side) {
             const content = document.getElementById(side + '-account');
+            const arrow = content.previousElementSibling.querySelector('span'); 
             const isVisible = content.style.display === 'block';
-            content.style.display = isVisible ? 'none' : 'block';
+            
+            if (isVisible) {
+                content.style.display = 'none';
+                arrow.textContent = '▼'; 
+            } else {
+                content.style.display = 'block';
+                arrow.textContent = '▲'; 
+            }
         }
 
         // 복사 함수
@@ -231,6 +323,19 @@
             }
             
             slides[currentSlideIndex].style.display = "block";
+        }
+
+        // 모달 열기/닫기 자바스크립트
+        function openModal(element) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("expandedImg");
+            
+            modal.style.display = "flex"; 
+            modalImg.src = element.src;   
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none"; 
         }
 
         // 텔레그램 메시지 전송 자바스크립트
