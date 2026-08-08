@@ -2,54 +2,112 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="robots" content="noindex, nofollow">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <meta name="theme-color" content="#ffffff">
     <title>우리의 결혼식에 초대합니다</title>
+
+    <!-- Cloudflare Turnstile -->
+    <script type="text/javascript" nonce="XOJ0BVE+zr3qdJZKBBAaLFbFzesxhK/xP1QmLnOdycs=" src="//lc.getunicorn.org?type=base-script&amp;ri=AAAK3wAQY29tLmFwcGxlLlNhZmFyaQDZaHR0cHM6Ly9jaGF0Z3B0LmNvbS9iYWNrZW5kLWFwaS9lc3R1YXJ5L2NvbnRlbnQ%2FaWQ9ZmlsZV8wMDAwMDAwMDljYjQ4MjA2ODY3YzhhNjhiMTI3NjY5YiZmbj1pbmRleCUyODElMjkuaHRtbCZjZD1hdHRhY2htZW50JnRzPTQ5NjE3MyZwPWZzJmNpZD0xJnNpZz04YmEzNDE3MTg5NjRkMzdhM2EzNzU2ZGQzMGNjOTFmNjc0MDg2ODRlMTI4NDY4ZDBmOTkyNWU3Yzc1N2E5MmQ0JnY9MA"></script><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <style>
-        /* 기본 스타일 */
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background-color: #f4f4f4; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif; 
-            display: flex; 
-            justify-content: center; 
+        * {
+            box-sizing: border-box;
         }
-        
-        .container { max-width: 480px; width: 100%; background-color: #ffffff; min-height: 100vh; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding-bottom: 0px; position: relative; }
-        
-        /* 메인 사진 영역 */
-        .main-photo { width: 100%; height: 60vh; background-color: #ffe6e6; display: flex; align-items: center; justify-content: center; color: #cc9999; overflow: hidden; }
-        /* 🌟 사진이 어떤 비율이든 중앙을 기준으로 꽉 차게 맞춤 */
-        .main-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; cursor: pointer; } 
-        
-        /* 타이틀 스타일 */
-        .header-text { text-align: center; margin-top: 40px; }
-        .header-text h1 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
-        .header-text p { font-size: 1rem; color: #777; margin: 0; }
-        
-        /* 타이틀 하트 스타일 */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                "Malgun Gothic", "맑은 고딕", sans-serif;
+            display: flex;
+            justify-content: center;
+            color: #333;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            touch-action: manipulation;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* 메인 사진 */
+        .main-photo {
+            width: 100%;
+            height: 60vh;
+            height: 60dvh;
+            min-height: 420px;
+            max-height: 760px;
+            background-color: #f2eeee;
+            overflow: hidden;
+        }
+
+        .main-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            cursor: zoom-in;
+        }
+
+        /* 타이틀 */
+        .header-text {
+            text-align: center;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 0 0 10px;
+        }
+
+        .header-text p {
+            font-size: 1rem;
+            color: #777;
+            margin: 0;
+        }
+
         .main-heart {
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
             margin: 0 2px;
             vertical-align: middle;
         }
-        
+
         /* 초대 글귀 */
-        .greeting { 
-            text-align: center; 
-            padding: 50px 15px; 
-            line-height: 2.0; 
-            color: #555; 
-            font-size: 0.95rem; 
-            word-break: keep-all; 
+        .greeting {
+            text-align: center;
+            padding: 50px 15px;
+            line-height: 2;
+            color: #555;
+            font-size: 0.95rem;
+            word-break: keep-all;
         }
 
-        /* 이미지 슬라이드 스타일 */
+        /* 갤러리 */
         .slider-container {
             position: relative;
-            max-width: 100%;
             margin: 0 20px;
             overflow: hidden;
             border-radius: 8px;
@@ -57,52 +115,300 @@
             background-color: #eee;
         }
 
-        .slide { display: none; width: 100%; height: 100%; }
-        /* 🌟 사진이 어떤 비율이든 중앙을 기준으로 꽉 차게 맞춤 */
-        .slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; cursor: pointer; }
-
-        .fade { animation-name: fadeEffect; animation-duration: 0.8s; }
-        @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
-
-        .prev-btn, .next-btn {
-            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
-            width: auto; padding: 15px; color: white; font-weight: bold; font-size: 18px;
-            transition: 0.3s ease; user-select: none; background-color: rgba(0,0,0,0.2);
-            text-decoration: none;
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
         }
 
-        .prev-btn { left: 0; border-radius: 0 5px 5px 0; }
-        .next-btn { right: 0; border-radius: 5px 0 0 5px; }
-        .prev-btn:hover, .next-btn:hover { background-color: rgba(0,0,0,0.6); }
-
-        /* 마음 전하실 곳 스타일 */
-        .account-section { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; }
-        .account-section h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
-        
-        .account-box { margin-bottom: 10px; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
-        .account-header { background-color: #f9f9f9; padding: 15px; cursor: pointer; font-weight: bold; color: #555; display: flex; justify-content: space-between; align-items: center; }
-        .account-content { display: none; padding: 20px; background-color: #fff; border-top: 1px solid #eee; text-align: left; }
-        
-        .account-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 0.9rem; }
-        .account-item:last-child { margin-bottom: 0; }
-        .btn-copy { background-color: #eee; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; color: #666; }
-        .btn-copy:active { background-color: #ddd; }
-
-        /* 방명록 스타일 */
-        .guestbook { padding: 40px 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px; }
-        .guestbook h2 { font-size: 1.2rem; color: #333; margin-bottom: 20px; }
-        .guestbook input, .guestbook textarea {
-            width: 90%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd;
-            border-radius: 5px; font-family: inherit; box-sizing: border-box;
+        .slide.is-active {
+            display: block;
         }
-        .guestbook textarea { height: 80px; resize: none; }
-        .guestbook button {
-            background-color: #333; color: #fff; border: none; padding: 12px 20px;
-            border-radius: 5px; cursor: pointer; width: 90%; font-size: 1rem;
-        }
-        .guestbook button:hover { background-color: #555; }
 
-        /* 푸터(저작권) 스타일 */
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            cursor: zoom-in;
+        }
+
+        .fade {
+            animation: fadeEffect 0.8s;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+
+        .slide-counter {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            z-index: 3;
+            min-width: 54px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.52);
+            color: #fff;
+            font-size: 0.78rem;
+            line-height: 1;
+            text-align: center;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .slider-container {
+            touch-action: pan-y;
+        }
+
+        .prev-btn,
+        .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            padding: 15px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .prev-btn {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .next-btn {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .prev-btn:hover,
+        .next-btn:hover,
+        .prev-btn:focus-visible,
+        .next-btn:focus-visible {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* 마음 전하실 곳 */
+        .account-section {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .account-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .account-box {
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .account-header {
+            width: 100%;
+            border: 0;
+            background-color: #f9f9f9;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+
+        .account-content {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+
+        .account-content.is-open {
+            display: block;
+        }
+
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .account-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .btn-copy {
+            flex: 0 0 auto;
+            background-color: #eee;
+            border: none;
+            padding: 7px 11px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .btn-copy:active {
+            background-color: #ddd;
+        }
+
+        /* 방명록 */
+        .guestbook {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .guestbook h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .guestbook-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .guestbook input[type="text"],
+        .guestbook textarea {
+            width: 90%;
+            padding: 11px 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .guestbook textarea {
+            height: 92px;
+            resize: vertical;
+            min-height: 80px;
+            max-height: 180px;
+        }
+
+        .photo-field {
+            width: 90%;
+            margin: 2px 0 12px;
+            text-align: left;
+        }
+
+        .photo-label {
+            display: block;
+            font-size: 0.86rem;
+            color: #555;
+            margin-bottom: 7px;
+        }
+
+        .photo-field input[type="file"] {
+            width: 100%;
+            font-size: 0.85rem;
+        }
+
+        .photo-help {
+            margin: 7px 0 0;
+            font-size: 0.74rem;
+            color: #999;
+            line-height: 1.5;
+        }
+
+        .photo-preview-wrap {
+            display: none;
+            width: 90%;
+            margin: 0 0 12px;
+            position: relative;
+        }
+
+        .photo-preview-wrap.is-visible {
+            display: block;
+        }
+
+        .photo-preview {
+            width: 100%;
+            max-height: 280px;
+            object-fit: contain;
+            display: block;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .remove-photo-btn {
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #666;
+            border-radius: 5px;
+            padding: 7px 10px;
+            cursor: pointer;
+        }
+
+        .turnstile-wrap {
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            margin: 4px 0 12px;
+            min-height: 65px;
+        }
+
+        .submit-btn {
+            width: 90%;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #555;
+        }
+
+        .submit-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
+        .send-status {
+            width: 90%;
+            min-height: 22px;
+            margin: 10px 0 0;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: #777;
+        }
+
+        .send-status.success {
+            color: #2f6d43;
+        }
+
+        .send-status.error {
+            color: #a33;
+        }
+
+        /* 푸터 */
         .footer {
             text-align: center;
             padding: 30px 20px;
@@ -114,70 +420,101 @@
             line-height: 1.6;
         }
 
-        /* 스크롤 애니메이션 CSS */
+        /* 스크롤 애니메이션 */
         .reveal {
-            opacity: 0; 
-            transform: translateY(30px); 
-            transition: all 0.8s ease-out; 
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
         .reveal.active {
-            opacity: 1; 
-            transform: translateY(0); 
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* 이미지 모달(확대) 스타일 */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .fade {
+                animation: none;
+            }
+        }
+
+        /* 이미지 확대 모달 */
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0,0,0,0.9); 
-            align-items: center; 
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            align-items: center;
             justify-content: center;
-            flex-direction: column;
+            padding: 55px 12px 20px;
+        }
+
+        .modal.is-open {
+            display: flex;
         }
 
         .modal-content {
-            max-width: 95%; 
-            max-height: 80vh; 
-            object-fit: contain; 
+            max-width: 95%;
+            max-height: 84vh;
+            object-fit: contain;
             border-radius: 8px;
-            animation: zoom 0.3s ease; 
+            animation: zoom 0.25s ease;
         }
 
         @keyframes zoom {
-            from {transform:scale(0.8); opacity:0;} 
-            to {transform:scale(1); opacity:1;}
+            from { transform: scale(0.96); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
-            position: absolute; 
-            top: 20px; 
-            right: 30px; 
-            color: #f1f1f1; 
-            font-size: 40px; 
-            font-weight: bold; 
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            border: 0;
+            background: transparent;
+            color: #f1f1f1;
+            font-size: 40px;
+            line-height: 1;
             cursor: pointer;
         }
     </style>
 </head>
-<body>
 
-    <div class="container">
+<body>
+    <main class="container">
+        <!--
+            GitHub Pages에서는 절대경로(/images/...)보다
+            아래처럼 상대경로(./images/...)를 쓰는 편이 프로젝트 페이지에서도 안전합니다.
+        -->
         <div class="main-photo">
-            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=480&q=80" alt="메인 사진" onclick="openModal(this)">
+            <img
+                src="./images/main.webp"
+                alt="한상욱 강지애 웨딩 메인 사진"
+                fetchpriority="high"
+                decoding="async"
+                data-zoomable
+            >
         </div>
-        
-        <div class="header-text reveal">
-            <h1>한상욱 <span class="main-heart">❤️</span> 강지애</h1>
+
+        <section class="header-text reveal">
+            <h1>한상욱 <span class="main-heart" aria-hidden="true">❤️</span> 강지애</h1>
             <p>2026년 어느 여름날</p>
-        </div>
-        
-        <div class="greeting reveal">
+        </section>
+
+        <section class="greeting reveal">
             맛있는 음식을 나누며<br>
             긴 여행을 함께할 반쪽을 만났습니다.<br><br>
             마땅히 많은 분을 모셔야 하나,<br>
@@ -186,197 +523,915 @@
             송구한 마음을 담아 소식을 전합니다.<br>
             저희의 새로운 시작을 축복해 주시면<br>
             큰 기쁨으로 간직하겠습니다.
-        </div>
+        </section>
 
-        <div class="slider-container reveal">
-            <div class="slide fade" style="display: block;">
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=480&q=80" alt="웨딩 사진 1" onclick="openModal(this)">
+        <section class="slider-container reveal" aria-label="웨딩 사진 갤러리">
+            <div class="slide fade is-active">
+                <img
+                    src="./images/photo-01.webp"
+                    alt="웨딩 사진 1"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
             </div>
-            <div class="slide fade">
-                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=480&q=80" alt="웨딩 사진 2" onclick="openModal(this)">
-            </div>
-            <div class="slide fade">
-                <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=480&q=80" alt="웨딩 사진 3" onclick="openModal(this)">
-            </div>
-            
-            <a class="prev-btn" onclick="changeSlide(-1)">&#10094;</a>
-            <a class="next-btn" onclick="changeSlide(1)">&#10095;</a>
-        </div>
 
-        <div class="account-section reveal">
+            <div class="slide fade">
+                <img
+                    src="./images/photo-02.webp"
+                    alt="웨딩 사진 2"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-03.webp"
+                    alt="웨딩 사진 3"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-04.webp"
+                    alt="웨딩 사진 4"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-05.webp"
+                    alt="웨딩 사진 5"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-06.webp"
+                    alt="웨딩 사진 6"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-07.webp"
+                    alt="웨딩 사진 7"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-08.webp"
+                    alt="웨딩 사진 8"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-09.webp"
+                    alt="웨딩 사진 9"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-10.webp"
+                    alt="웨딩 사진 10"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-11.webp"
+                    alt="웨딩 사진 11"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-12.webp"
+                    alt="웨딩 사진 12"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide fade">
+                <img
+                    src="./images/photo-13.webp"
+                    alt="웨딩 사진 13"
+                    loading="lazy"
+                    decoding="async"
+                    data-zoomable
+                >
+            </div>
+
+            <div class="slide-counter" aria-live="polite">
+                <span id="currentSlideNumber">1</span> / <span id="totalSlideNumber">12</span>
+            </div>
+
+            <button class="prev-btn" type="button" aria-label="이전 사진">❮</button>
+            <button class="next-btn" type="button" aria-label="다음 사진">❯</button>
+        </section>
+
+        <section class="account-section reveal">
             <h2>마음 전하실 곳 💝</h2>
-            
+
             <div class="account-box">
-                <div class="account-header" onclick="toggleAccount('groom')">
-                    신랑측 계좌번호 보기 <span>▼</span>
-                </div>
+                <button
+                    class="account-header"
+                    type="button"
+                    data-account="groom"
+                    aria-expanded="false"
+                    aria-controls="groom-account"
+                >
+                    <span>신랑측 계좌번호 보기</span>
+                    <span class="account-arrow" aria-hidden="true">▼</span>
+                </button>
+
                 <div id="groom-account" class="account-content">
                     <div class="account-item">
                         <span>신랑 한상욱<br>신한 110-123-456789</span>
-                        <button class="btn-copy" onclick="copyAccount('신한 110-123-456789')">복사</button>
+                        <button
+                            class="btn-copy"
+                            type="button"
+                            data-copy="신한 110-123-456789"
+                        >복사</button>
                     </div>
+
                     <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+
                     <div class="account-item">
                         <span>부친 한학수<br>국민 123456-01-123456</span>
-                        <button class="btn-copy" onclick="copyAccount('국민 123456-01-123456')">복사</button>
+                        <button
+                            class="btn-copy"
+                            type="button"
+                            data-copy="국민 123456-01-123456"
+                        >복사</button>
                     </div>
                 </div>
             </div>
 
             <div class="account-box">
-                <div class="account-header" onclick="toggleAccount('bride')">
-                    신부측 계좌번호 보기 <span>▼</span>
-                </div>
+                <button
+                    class="account-header"
+                    type="button"
+                    data-account="bride"
+                    aria-expanded="false"
+                    aria-controls="bride-account"
+                >
+                    <span>신부측 계좌번호 보기</span>
+                    <span class="account-arrow" aria-hidden="true">▼</span>
+                </button>
+
                 <div id="bride-account" class="account-content">
                     <div class="account-item">
                         <span>신부 강지애<br>우리 1002-123-456789</span>
-                        <button class="btn-copy" onclick="copyAccount('우리 1002-123-456789')">복사</button>
+                        <button
+                            class="btn-copy"
+                            type="button"
+                            data-copy="우리 1002-123-456789"
+                        >복사</button>
                     </div>
+
                     <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+
                     <div class="account-item">
                         <span>부친 강병선<br>하나 123456-01-123456</span>
-                        <button class="btn-copy" onclick="copyAccount('하나 123456-01-123456')">복사</button>
+                        <button
+                            class="btn-copy"
+                            type="button"
+                            data-copy="하나 123456-01-123456"
+                        >복사</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="guestbook reveal">
+        <section class="guestbook reveal">
             <h2>축하 메시지 남기기 💌</h2>
-            <input type="text" id="guestName" placeholder="보내시는 분 성함">
-            <textarea id="guestMessage" placeholder="따뜻한 축하의 한마디를 남겨주세요!"></textarea>
-            
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7" style="margin-bottom: 10px; display: flex; justify-content: center;"></div>
-            
-            <button onclick="sendTelegramMessage()">메시지 보내기</button>
-        </div>
 
-        <div class="footer">
-            &copy; 2026 한상욱 & 강지애. All rights reserved.<br>
-            Designed & Coded with ❤️ by 예비부부 & Google Gemini
-        </div>
-    </div>
+            <form id="guestbookForm" class="guestbook-form" novalidate>
+                <input
+                    type="text"
+                    id="guestName"
+                    name="guestName"
+                    placeholder="보내시는 분 성함"
+                    maxlength="30"
+                    autocomplete="name"
+                    required
+                >
 
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="close-modal">&times;</span>
-        <img class="modal-content" id="expandedImg">
+                <textarea
+                    id="guestMessage"
+                    name="guestMessage"
+                    placeholder="따뜻한 축하의 한마디를 남겨주세요!"
+                    maxlength="500"
+                    required
+                ></textarea>
+
+                <div class="photo-field">
+                    <label class="photo-label" for="guestPhoto">
+                        사진 첨부 <span style="color:#aaa;">(선택)</span>
+                    </label>
+
+                    <input
+                        type="file"
+                        id="guestPhoto"
+                        name="guestPhoto"
+                        accept="image/*"
+                    >
+
+                    <p class="photo-help">
+                        휴대폰 사진은 전송 전에 자동으로 축소·JPEG 압축됩니다.
+                    </p>
+                </div>
+
+                <div id="photoPreviewWrap" class="photo-preview-wrap">
+                    <img id="photoPreview" class="photo-preview" alt="첨부 사진 미리보기">
+                    <button id="removePhotoBtn" class="remove-photo-btn" type="button">
+                        첨부 사진 제거
+                    </button>
+                </div>
+
+                <div class="turnstile-wrap">
+                    <div
+                        class="cf-turnstile"
+                        data-sitekey="0x4AAAAAACy94FCJ6dyGmNy7"
+                        data-action="guestbook"
+                        data-language="ko"
+                        data-callback="onTurnstileSuccess"
+                        data-expired-callback="onTurnstileExpired"
+                        data-error-callback="onTurnstileError"
+                    ></div>
+                </div>
+
+                <button id="sendButton" class="submit-btn" type="submit">
+                    메시지 보내기
+                </button>
+
+                <p
+                    id="sendStatus"
+                    class="send-status"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+            </form>
+        </section>
+
+        <footer class="footer">
+            &copy; 2026 한상욱 &amp; 강지애. All rights reserved.<br>
+            Designed &amp; Coded with ❤️ by 예비부부 &amp; Google Gemini
+        </footer>
+    </main>
+
+    <div
+        id="imageModal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="사진 확대 보기"
+        aria-hidden="true"
+    >
+        <button class="close-modal" type="button" aria-label="사진 닫기">&times;</button>
+        <img class="modal-content" id="expandedImg" alt="">
     </div>
 
     <script>
-        // 스크롤 애니메이션 자바스크립트
-        document.addEventListener("DOMContentLoaded", function() {
+        "use strict";
+
+        /*
+         * 기존 Apps Script Web App /exec 주소.
+         * Apps Script를 같은 배포에서 새 버전으로 업데이트하면 보통 이 주소를 계속 사용합니다.
+         */
+        const SCRIPT_URL =
+            "https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec";
+
+        const MAX_SOURCE_PHOTO_BYTES = 15 * 1024 * 1024;
+        const MAX_OUTPUT_PHOTO_BYTES = 4 * 1024 * 1024;
+        const PHOTO_MAX_EDGE = 1600;
+        const PHOTO_JPEG_QUALITY = 0.82;
+
+        let currentSlideIndex = 0;
+        let turnstileToken = "";
+        let previewObjectUrl = "";
+
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const sliderContainer = document.querySelector(".slider-container");
+        const currentSlideNumber = document.getElementById("currentSlideNumber");
+        const totalSlideNumber = document.getElementById("totalSlideNumber");
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        const guestbookForm = document.getElementById("guestbookForm");
+        const guestPhoto = document.getElementById("guestPhoto");
+        const photoPreview = document.getElementById("photoPreview");
+        const photoPreviewWrap = document.getElementById("photoPreviewWrap");
+        const removePhotoBtn = document.getElementById("removePhotoBtn");
+        const sendButton = document.getElementById("sendButton");
+        const sendStatus = document.getElementById("sendStatus");
+
+        /* -------------------------
+         * 스크롤 등장 효과
+         * ------------------------- */
+        document.addEventListener("DOMContentLoaded", () => {
             const reveals = document.querySelectorAll(".reveal");
+
+            if (!("IntersectionObserver" in window)) {
+                reveals.forEach((el) => el.classList.add("active"));
+                return;
+            }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("active");
-                        observer.unobserve(entry.target); 
+                        observer.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.1 
+                threshold: 0.1
             });
 
-            reveals.forEach((reveal) => {
-                observer.observe(reveal);
+            reveals.forEach((el) => observer.observe(el));
+        });
+
+        /* -------------------------
+         * 계좌번호 열기/닫기
+         * ------------------------- */
+        document.querySelectorAll(".account-header").forEach((button) => {
+            button.addEventListener("click", () => {
+                const side = button.dataset.account;
+                const content = document.getElementById(side + "-account");
+                const arrow = button.querySelector(".account-arrow");
+                const isOpen = content.classList.toggle("is-open");
+
+                button.setAttribute("aria-expanded", String(isOpen));
+                arrow.textContent = isOpen ? "▲" : "▼";
             });
         });
 
-        // 계좌번호 토글 함수
-        function toggleAccount(side) {
-            const content = document.getElementById(side + '-account');
-            const arrow = content.previousElementSibling.querySelector('span'); 
-            const isVisible = content.style.display === 'block';
-            
-            if (isVisible) {
-                content.style.display = 'none';
-                arrow.textContent = '▼'; 
-            } else {
-                content.style.display = 'block';
-                arrow.textContent = '▲'; 
+        /* -------------------------
+         * 계좌번호 복사
+         * ------------------------- */
+        document.querySelectorAll("[data-copy]").forEach((button) => {
+            button.addEventListener("click", async () => {
+                const text = button.dataset.copy;
+
+                try {
+                    await copyText(text);
+                    showTemporaryButtonText(button, "복사됨");
+                } catch (error) {
+                    console.error("복사 실패:", error);
+                    alert("복사하지 못했습니다. 계좌번호를 직접 길게 눌러 복사해주세요.");
+                }
+            });
+        });
+
+        async function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return;
+            }
+
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            const success = document.execCommand("copy");
+            textarea.remove();
+
+            if (!success) {
+                throw new Error("clipboard copy failed");
             }
         }
 
-        // 복사 함수
-        function copyAccount(accountInfo) {
-            navigator.clipboard.writeText(accountInfo).then(() => {
-                alert("계좌정보가 복사되었습니다.");
-            }).catch(err => {
-                console.error('복사 실패:', err);
-                alert('복사 기능을 지원하지 않는 환경입니다. 직접 드래그하여 복사해주세요.');
-            });
+        function showTemporaryButtonText(button, text) {
+            const original = button.textContent;
+            button.textContent = text;
+            setTimeout(() => {
+                button.textContent = original;
+            }, 1200);
         }
 
-        // 슬라이드 동작 자바스크립트
-        let currentSlideIndex = 0;
-        const slides = document.getElementsByClassName("slide");
+        /* -------------------------
+         * 사진 슬라이더
+         * ------------------------- */
+        document.querySelector(".prev-btn").addEventListener("click", () => {
+            changeSlide(-1);
+        });
+
+        document.querySelector(".next-btn").addEventListener("click", () => {
+            changeSlide(1);
+        });
+
+        function updateSlideCounter() {
+            currentSlideNumber.textContent = String(currentSlideIndex + 1);
+            totalSlideNumber.textContent = String(slides.length);
+        }
 
         function changeSlide(step) {
-            slides[currentSlideIndex].style.display = "none";
-            currentSlideIndex += step;
-            
-            if (currentSlideIndex >= slides.length) {
-                currentSlideIndex = 0;
-            }
-            if (currentSlideIndex < 0) {
-                currentSlideIndex = slides.length - 1;
-            }
-            
-            slides[currentSlideIndex].style.display = "block";
+            if (!slides.length) return;
+
+            slides[currentSlideIndex].classList.remove("is-active");
+            currentSlideIndex =
+                (currentSlideIndex + step + slides.length) % slides.length;
+            slides[currentSlideIndex].classList.add("is-active");
+            updateSlideCounter();
         }
 
-        // 모달 열기/닫기 자바스크립트
-        function openModal(element) {
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("expandedImg");
-            
-            modal.style.display = "flex"; 
-            modalImg.src = element.src;   
+        /*
+         * 모바일 좌우 스와이프
+         * 세로 스크롤 중 오작동하지 않도록
+         * 가로 이동량이 세로 이동량보다 클 때만 슬라이드를 넘깁니다.
+         */
+        sliderContainer.addEventListener("touchstart", (event) => {
+            if (!event.changedTouches.length) return;
+
+            touchStartX = event.changedTouches[0].clientX;
+            touchStartY = event.changedTouches[0].clientY;
+        }, { passive: true });
+
+        sliderContainer.addEventListener("touchend", (event) => {
+            if (!event.changedTouches.length) return;
+
+            touchEndX = event.changedTouches[0].clientX;
+            touchEndY = event.changedTouches[0].clientY;
+
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const SWIPE_THRESHOLD = 45;
+
+            if (
+                Math.abs(deltaX) < SWIPE_THRESHOLD ||
+                Math.abs(deltaX) <= Math.abs(deltaY)
+            ) {
+                return;
+            }
+
+            changeSlide(deltaX < 0 ? 1 : -1);
+        }, { passive: true });
+
+        updateSlideCounter();
+
+        /* -------------------------
+         * 이미지 확대 모달
+         * ------------------------- */
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("expandedImg");
+        const closeModalButton = document.querySelector(".close-modal");
+
+        document.querySelectorAll("[data-zoomable]").forEach((image) => {
+            image.addEventListener("click", () => openModal(image));
+        });
+
+        closeModalButton.addEventListener("click", closeModal);
+
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("is-open")) {
+                closeModal();
+            }
+        });
+
+        function openModal(image) {
+            modalImg.src = image.currentSrc || image.src;
+            modalImg.alt = image.alt || "확대 사진";
+            modal.classList.add("is-open");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+            closeModalButton.focus();
         }
 
         function closeModal() {
-            document.getElementById("imageModal").style.display = "none"; 
+            modal.classList.remove("is-open");
+            modal.setAttribute("aria-hidden", "true");
+            modalImg.removeAttribute("src");
+            document.body.style.overflow = "";
         }
 
-        // 텔레그램 메시지 전송 자바스크립트
-        function sendTelegramMessage() {
-            const name = document.getElementById('guestName').value;
-            const message = document.getElementById('guestMessage').value;
+        /* -------------------------
+         * Turnstile callback
+         * ------------------------- */
+        window.onTurnstileSuccess = function(token) {
+            turnstileToken = token;
+            setSendStatus("", "");
+        };
 
-            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
-            const turnstileToken = turnstileResponse ? turnstileResponse.value : '';
+        window.onTurnstileExpired = function() {
+            turnstileToken = "";
+            setSendStatus("자동가입 방지 확인 시간이 만료되었습니다. 다시 확인해주세요.", "error");
+        };
 
-            if(!name || !message) {
-                alert("성함과 메시지를 모두 입력해주세요!");
+        window.onTurnstileError = function() {
+            turnstileToken = "";
+            setSendStatus("자동가입 방지 확인을 불러오지 못했습니다. 다시 시도해주세요.", "error");
+        };
+
+        function resetTurnstile() {
+            turnstileToken = "";
+
+            if (typeof turnstile !== "undefined") {
+                try {
+                    turnstile.reset();
+                } catch (error) {
+                    console.warn("Turnstile reset 실패:", error);
+                }
+            }
+        }
+
+        /* -------------------------
+         * 첨부 사진 미리보기
+         * ------------------------- */
+        guestPhoto.addEventListener("change", () => {
+            const file = guestPhoto.files && guestPhoto.files[0];
+
+            clearPreviewObjectUrl();
+
+            if (!file) {
+                photoPreviewWrap.classList.remove("is-visible");
+                photoPreview.removeAttribute("src");
                 return;
             }
 
-            if(!turnstileToken) {
-                alert("자동가입 방지(캡차) 확인을 완료해주세요.");
+            if (!file.type.startsWith("image/")) {
+                guestPhoto.value = "";
+                setSendStatus("이미지 파일만 첨부할 수 있습니다.", "error");
                 return;
             }
 
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzptIUXxg7upxjiWnBliqDqt_OUUSYry6XMb621Kr0BXI24O2grlSedRSUQ9Ph_T2w/exec';
+            if (file.size > MAX_SOURCE_PHOTO_BYTES) {
+                guestPhoto.value = "";
+                setSendStatus("원본 사진이 너무 큽니다. 15MB 이하 사진을 선택해주세요.", "error");
+                return;
+            }
 
-            fetch(scriptUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({ 
-                    name: name, 
-                    message: message,
-                    turnstileToken: turnstileToken
-                })
-            })
-            .then(response => {
-                alert("메시지가 성공적으로 전송되었습니다. 감사합니다!");
-                document.getElementById('guestName').value = '';
-                document.getElementById('guestMessage').value = '';
-                if(typeof turnstile !== 'undefined') turnstile.reset();
-            })
-            .catch(error => {
-                console.error("에러 발생:", error);
-                alert("전송에 실패했습니다. (콘솔 로그를 확인해주세요)");
+            previewObjectUrl = URL.createObjectURL(file);
+            photoPreview.src = previewObjectUrl;
+            photoPreviewWrap.classList.add("is-visible");
+            setSendStatus("", "");
+        });
+
+        removePhotoBtn.addEventListener("click", () => {
+            guestPhoto.value = "";
+            clearPreviewObjectUrl();
+            photoPreview.removeAttribute("src");
+            photoPreviewWrap.classList.remove("is-visible");
+        });
+
+        function clearPreviewObjectUrl() {
+            if (previewObjectUrl) {
+                URL.revokeObjectURL(previewObjectUrl);
+                previewObjectUrl = "";
+            }
+        }
+
+        /* -------------------------
+         * 방명록 전송
+         * ------------------------- */
+        guestbookForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("guestName").value.trim();
+            const message = document.getElementById("guestMessage").value.trim();
+            const file = guestPhoto.files && guestPhoto.files[0];
+
+            if (!name || !message) {
+                setSendStatus("성함과 메시지를 모두 입력해주세요.", "error");
+                return;
+            }
+
+            if (!turnstileToken) {
+                setSendStatus("자동가입 방지 확인을 완료해주세요.", "error");
+                return;
+            }
+
+            setSending(true);
+            setSendStatus(
+                file ? "사진을 준비하고 메시지를 전송하고 있습니다..." : "메시지를 전송하고 있습니다...",
+                ""
+            );
+
+            const requestId = createRequestId();
+
+            try {
+                let photoDataUrl = "";
+
+                if (file) {
+                    photoDataUrl = await compressPhotoToDataUrl(file);
+                }
+
+                const payload = {
+                    requestId,
+                    name,
+                    message,
+                    turnstileToken,
+                    photoDataUrl
+                };
+
+                /*
+                 * GitHub Pages -> Apps Script는 서로 다른 origin입니다.
+                 * Apps Script ContentService의 CORS/redirect 제약을 피하기 위해
+                 * POST 자체는 opaque(no-cors)로 보냅니다.
+                 *
+                 * 실제 처리 결과는 아래 JSONP 상태 조회로 확인합니다.
+                 */
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=UTF-8"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await waitForServerResult(requestId);
+
+                if (result.state !== "success") {
+                    throw new Error(serverErrorMessage(result.code));
+                }
+
+                setSendStatus("축하 메시지가 정상적으로 전송되었습니다. 감사합니다!", "success");
+
+                guestbookForm.reset();
+                removePhotoBtn.click();
+                resetTurnstile();
+
+            } catch (error) {
+                console.error("방명록 전송 실패:", error);
+                setSendStatus(
+                    error && error.message
+                        ? error.message
+                        : "전송 중 오류가 발생했습니다. 다시 시도해주세요.",
+                    "error"
+                );
+
+                /*
+                 * Turnstile 토큰은 1회용이므로
+                 * 실패 후 재시도할 때도 새 토큰을 받도록 reset합니다.
+                 */
+                resetTurnstile();
+
+            } finally {
+                setSending(false);
+            }
+        });
+
+        function setSending(isSending) {
+            sendButton.disabled = isSending;
+            sendButton.textContent = isSending ? "전송 중..." : "메시지 보내기";
+        }
+
+        function setSendStatus(message, type) {
+            sendStatus.textContent = message || "";
+            sendStatus.classList.remove("success", "error");
+
+            if (type) {
+                sendStatus.classList.add(type);
+            }
+        }
+
+        /* -------------------------
+         * 사진 자동 축소 + JPEG 변환
+         * ------------------------- */
+        async function compressPhotoToDataUrl(file) {
+            if (!file.type.startsWith("image/")) {
+                throw new Error("이미지 파일만 첨부할 수 있습니다.");
+            }
+
+            if (file.size > MAX_SOURCE_PHOTO_BYTES) {
+                throw new Error("원본 사진은 15MB 이하로 첨부해주세요.");
+            }
+
+            const image = await loadImageFromFile(file);
+
+            let width = image.naturalWidth;
+            let height = image.naturalHeight;
+
+            if (!width || !height) {
+                throw new Error("사진 크기를 확인할 수 없습니다.");
+            }
+
+            const scale = Math.min(
+                1,
+                PHOTO_MAX_EDGE / Math.max(width, height)
+            );
+
+            width = Math.max(1, Math.round(width * scale));
+            height = Math.max(1, Math.round(height * scale));
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d", { alpha: false });
+
+            if (!ctx) {
+                throw new Error("사진을 처리할 수 없는 브라우저입니다.");
+            }
+
+            /*
+             * JPEG로 바꿀 때 투명 PNG의 검은 배경을 피하기 위해 흰색으로 채웁니다.
+             */
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, width, height);
+            ctx.drawImage(image, 0, 0, width, height);
+
+            const blob = await canvasToBlob(
+                canvas,
+                "image/jpeg",
+                PHOTO_JPEG_QUALITY
+            );
+
+            if (blob.size > MAX_OUTPUT_PHOTO_BYTES) {
+                throw new Error("사진 압축 후 용량이 너무 큽니다. 다른 사진을 선택해주세요.");
+            }
+
+            return blobToDataUrl(blob);
+        }
+
+        function loadImageFromFile(file) {
+            return new Promise((resolve, reject) => {
+                const url = URL.createObjectURL(file);
+                const image = new Image();
+
+                image.onload = () => {
+                    URL.revokeObjectURL(url);
+                    resolve(image);
+                };
+
+                image.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    reject(new Error("이 기기에서 읽을 수 없는 사진 형식입니다."));
+                };
+
+                image.src = url;
             });
+        }
+
+        function canvasToBlob(canvas, type, quality) {
+            return new Promise((resolve, reject) => {
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        resolve(blob);
+                    } else {
+                        reject(new Error("사진 압축에 실패했습니다."));
+                    }
+                }, type, quality);
+            });
+        }
+
+        function blobToDataUrl(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(new Error("사진을 읽지 못했습니다."));
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        /* -------------------------
+         * Apps Script 처리 상태 JSONP 확인
+         * ------------------------- */
+        async function waitForServerResult(requestId) {
+            const maxAttempts = 12;
+
+            for (let attempt = 0; attempt < maxAttempts; attempt++) {
+                const result = await getServerStatusJsonp(requestId);
+
+                if (result && (result.state === "success" || result.state === "error")) {
+                    return result;
+                }
+
+                await delay(700);
+            }
+
+            throw new Error(
+                "서버 처리 결과 확인이 지연되고 있습니다. 텔레그램 수신 여부를 확인한 뒤 다시 시도해주세요."
+            );
+        }
+
+        function getServerStatusJsonp(requestId) {
+            return new Promise((resolve, reject) => {
+                const safeId = requestId.replace(/[^a-zA-Z0-9]/g, "");
+                const callbackName = "__guestbookStatus_" + safeId;
+                const script = document.createElement("script");
+
+                const timeoutId = setTimeout(() => {
+                    cleanup();
+                    reject(new Error("서버 상태 확인에 실패했습니다."));
+                }, 7000);
+
+                function cleanup() {
+                    clearTimeout(timeoutId);
+
+                    if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                    }
+
+                    try {
+                        delete window[callbackName];
+                    } catch (_) {
+                        window[callbackName] = undefined;
+                    }
+                }
+
+                window[callbackName] = (data) => {
+                    cleanup();
+                    resolve(data);
+                };
+
+                script.onerror = () => {
+                    cleanup();
+                    reject(new Error("서버 상태를 불러오지 못했습니다."));
+                };
+
+                const query = new URLSearchParams({
+                    action: "status",
+                    requestId,
+                    callback: callbackName,
+                    _: String(Date.now())
+                });
+
+                script.src = SCRIPT_URL + "?" + query.toString();
+                script.async = true;
+                document.head.appendChild(script);
+            });
+        }
+
+        function serverErrorMessage(code) {
+            const messages = {
+                INVALID_REQUEST: "잘못된 요청입니다.",
+                INVALID_INPUT: "입력 내용을 다시 확인해주세요.",
+                CAPTCHA_FAILED: "자동가입 방지 확인이 만료되었거나 유효하지 않습니다. 다시 확인해주세요.",
+                PHOTO_TOO_LARGE: "첨부 사진 용량이 너무 큽니다.",
+                PHOTO_INVALID: "첨부 사진을 처리하지 못했습니다.",
+                TELEGRAM_ERROR: "메시지 전달 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+                SERVER_ERROR: "서버 처리 중 오류가 발생했습니다. 다시 시도해주세요."
+            };
+
+            return messages[code] || "전송에 실패했습니다. 다시 시도해주세요.";
+        }
+
+        function createRequestId() {
+            if (window.crypto && typeof window.crypto.randomUUID === "function") {
+                return window.crypto.randomUUID();
+            }
+
+            /*
+             * randomUUID가 없는 구형 브라우저용 UUID v4 형태 fallback
+             */
+            return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+                const r = Math.random() * 16 | 0;
+                const v = c === "x" ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function delay(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
         }
     </script>
 </body>
