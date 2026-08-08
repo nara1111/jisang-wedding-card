@@ -643,18 +643,9 @@
                     data-zoomable
                 >
             </div>
-            <div class="slide fade">
-                <img
-                    src="./images/photo-14.webp"
-                    alt="웨딩 사진 14"
-                    loading="lazy"
-                    decoding="async"
-                    data-zoomable
-                >
-            </div>
 
             <div class="slide-counter" aria-live="polite">
-                <span id="currentSlideNumber">1</span> / <span id="totalSlideNumber">14</span>
+                <span id="currentSlideNumber">1</span> / <span id="totalSlideNumber">13</span>
             </div>
 
             <button class="prev-btn" type="button" aria-label="이전 사진">❮</button>
@@ -1183,13 +1174,15 @@
                     body: JSON.stringify(payload)
                 });
 
-                const result = await waitForServerResult(requestId);
-
-                if (result.state !== "success") {
-                    throw new Error(serverErrorMessage(result.code));
-                }
-
-                setSendStatus("축하 메시지가 정상적으로 전송되었습니다. 감사합니다!", "success");
+                /*
+                 * no-cors 요청은 브라우저에서 서버 응답 본문을 읽을 수 없습니다.
+                 * 따라서 "전송 성공" 대신 "전송 요청 완료"라고 표시합니다.
+                 * 실제 Turnstile 검증 및 Telegram 전송은 Apps Script에서 수행됩니다.
+                 */
+                setSendStatus(
+                    "축하 메시지 전송 요청이 완료되었습니다. 감사합니다!",
+                    "success"
+                );
 
                 guestbookForm.reset();
                 removePhotoBtn.click();
@@ -1329,107 +1322,6 @@
             });
         }
 
-        /* -------------------------
-         * Apps Script 처리 상태 JSONP 확인
-         * ------------------------- */
-        async function waitForServerResult(requestId) {
-            const maxAttempts = 12;
-
-            for (let attempt = 0; attempt < maxAttempts; attempt++) {
-                const result = await getServerStatusJsonp(requestId);
-
-                if (result && (result.state === "success" || result.state === "error")) {
-                    return result;
-                }
-
-                await delay(700);
-            }
-
-            throw new Error(
-                "서버 처리 결과 확인이 지연되고 있습니다. 텔레그램 수신 여부를 확인한 뒤 다시 시도해주세요."
-            );
-        }
-
-        function getServerStatusJsonp(requestId) {
-            return new Promise((resolve, reject) => {
-                const safeId = requestId.replace(/[^a-zA-Z0-9]/g, "");
-                const callbackName = "__guestbookStatus_" + safeId;
-                const script = document.createElement("script");
-
-                const timeoutId = setTimeout(() => {
-                    cleanup();
-                    reject(new Error("서버 상태 확인에 실패했습니다."));
-                }, 7000);
-
-                function cleanup() {
-                    clearTimeout(timeoutId);
-
-                    if (script.parentNode) {
-                        script.parentNode.removeChild(script);
-                    }
-
-                    try {
-                        delete window[callbackName];
-                    } catch (_) {
-                        window[callbackName] = undefined;
-                    }
-                }
-
-                window[callbackName] = (data) => {
-                    cleanup();
-                    resolve(data);
-                };
-
-                script.onerror = () => {
-                    cleanup();
-                    reject(new Error("서버 상태를 불러오지 못했습니다."));
-                };
-
-                const query = new URLSearchParams({
-                    action: "status",
-                    requestId,
-                    callback: callbackName,
-                    _: String(Date.now())
-                });
-
-                script.src = SCRIPT_URL + "?" + query.toString();
-                script.async = true;
-                document.head.appendChild(script);
-            });
-        }
-
-        function serverErrorMessage(code) {
-            const messages = {
-                INVALID_REQUEST: "잘못된 요청입니다.",
-                INVALID_INPUT: "입력 내용을 다시 확인해주세요.",
-                CAPTCHA_FAILED: "자동가입 방지 확인이 만료되었거나 유효하지 않습니다. 다시 확인해주세요.",
-                PHOTO_TOO_LARGE: "첨부 사진 용량이 너무 큽니다.",
-                PHOTO_INVALID: "첨부 사진을 처리하지 못했습니다.",
-                TELEGRAM_ERROR: "메시지 전달 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
-                SERVER_ERROR: "서버 처리 중 오류가 발생했습니다. 다시 시도해주세요."
-            };
-
-            return messages[code] || "전송에 실패했습니다. 다시 시도해주세요.";
-        }
-
-        function createRequestId() {
-            if (window.crypto && typeof window.crypto.randomUUID === "function") {
-                return window.crypto.randomUUID();
-            }
-
-            /*
-             * randomUUID가 없는 구형 브라우저용 UUID v4 형태 fallback
-             */
-            return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-                const r = Math.random() * 16 | 0;
-                const v = c === "x" ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
-        function delay(ms) {
-            return new Promise((resolve) => setTimeout(resolve, ms));
-        }
     </script>
 </body>
 </html>
