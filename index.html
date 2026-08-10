@@ -669,11 +669,11 @@
 
                 <div id="groom-account" class="account-content">
                     <div class="account-item">
-                        <span>신랑 한상욱<br>신한 110-313-418140</span>
+                        <span>신랑 한상욱<br>신한 110-123-456789</span>
                         <button
                             class="btn-copy"
                             type="button"
-                            data-copy="신한 110-313-418140"
+                            data-copy="신한 110-123-456789"
                         >복사</button>
                     </div>
                 </div>
@@ -693,11 +693,11 @@
 
                 <div id="bride-account" class="account-content">
                     <div class="account-item">
-                        <span>신부 강지애<br>하나 742-910007-29204</span>
+                        <span>신부 강지애<br>우리 1002-123-456789</span>
                         <button
                             class="btn-copy"
                             type="button"
-                            data-copy="하나 742-910007-29204"
+                            data-copy="우리 1002-123-456789"
                         >복사</button>
                     </div>
                 </div>
@@ -777,7 +777,7 @@
 
         <footer class="footer">
             &copy; 2026 한상욱 &amp; 강지애. All rights reserved.<br>
-            Designed &amp; Coded with ❤️ by 예비부부 &amp; Google Gemini &amp; ChatGPT
+            Designed &amp; Coded with ❤️ by 예비부부 &amp; Google Gemini
         </footer>
     </main>
 
@@ -1094,6 +1094,46 @@
         }
 
         /* -------------------------
+         * 요청 ID 생성 (UUID v4)
+         * ------------------------- */
+        function createRequestId() {
+            if (
+                window.crypto &&
+                typeof window.crypto.randomUUID === "function"
+            ) {
+                return window.crypto.randomUUID();
+            }
+
+            if (
+                window.crypto &&
+                typeof window.crypto.getRandomValues === "function"
+            ) {
+                const bytes = new Uint8Array(16);
+                window.crypto.getRandomValues(bytes);
+
+                bytes[6] = (bytes[6] & 0x0f) | 0x40;
+                bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+                const hex = Array.from(
+                    bytes,
+                    (byte) => byte.toString(16).padStart(2, "0")
+                );
+
+                return [
+                    hex.slice(0, 4).join(""),
+                    hex.slice(4, 6).join(""),
+                    hex.slice(6, 8).join(""),
+                    hex.slice(8, 10).join(""),
+                    hex.slice(10, 16).join("")
+                ].join("-");
+            }
+
+            throw new Error(
+                "이 브라우저에서는 보안 요청 ID를 생성할 수 없습니다."
+            );
+        }
+
+        /* -------------------------
          * 방명록 전송
          * ------------------------- */
         guestbookForm.addEventListener("submit", async (event) => {
@@ -1119,9 +1159,8 @@
                 ""
             );
 
-            const requestId = createRequestId();
-
             try {
+                const requestId = createRequestId();
                 let photoDataUrl = "";
 
                 if (file) {
@@ -1140,8 +1179,6 @@
                  * GitHub Pages -> Apps Script는 서로 다른 origin입니다.
                  * Apps Script ContentService의 CORS/redirect 제약을 피하기 위해
                  * POST 자체는 opaque(no-cors)로 보냅니다.
-                 *
-                 * 실제 처리 결과는 아래 JSONP 상태 조회로 확인합니다.
                  */
                 await fetch(SCRIPT_URL, {
                     method: "POST",
